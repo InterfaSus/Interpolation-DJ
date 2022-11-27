@@ -6,6 +6,7 @@ using TMPro;
 public class TimerManager : MonoBehaviour
 {
 
+    public float timePerLevel = 20;
     public TextMeshProUGUI timerText;
 
     void Start() {
@@ -18,9 +19,14 @@ public class TimerManager : MonoBehaviour
         StartCoroutine(Timer());
     }
 
+    public void StopTimer() {
+        
+        StopAllCoroutines();
+    }
+
     IEnumerator Timer() {
         
-        float timeLeft = 20;
+        float timeLeft = timePerLevel + 1;
         while (timeLeft > 0) {
 
             timeLeft -= Time.deltaTime;
@@ -28,6 +34,6 @@ public class TimerManager : MonoBehaviour
             yield return null;
         }
         timerText.text = "0";
-        // FindObjectOfType<GameManager>().NextLevel();
+        FindObjectOfType<GameManager>().NextLevel();
     }
 }

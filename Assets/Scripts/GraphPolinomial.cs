@@ -13,7 +13,7 @@ public class GraphPolinomial : MonoBehaviour
     
     private int pointCount;
     private LineRenderer line;
-    private Vector3 CalculatePoints(float x, float[] coefficients)
+    public Vector3 CalculatePoints(float x, float[] coefficients)
     {
         float y = 0;
         for (int i = 0; i < coefficients.Length; i++)
@@ -48,7 +48,7 @@ public class GraphPolinomial : MonoBehaviour
     }
 
     // Get coefficients of the polinomial that passes through the points using the Vandermonde matrix
-    private float[] GetPolinomial(Vector3[] points)
+    public float[] GetPolinomial(Vector3[] points)
     {
         float[] coefficients = new float[points.Length];
 

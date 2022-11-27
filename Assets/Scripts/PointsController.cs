@@ -11,15 +11,24 @@ public class PointsController : MonoBehaviour
     public float distance;
     public float yMoveLimit = 4.5f;
 
+    public Vector3[] MobilePoints { get => mobilePoints.Select(point => point.transform.position).ToArray(); }
+    public Vector3[] StaticPoints { get => staticPoints.Select(point => point.transform.position).ToArray(); }
+
+    GameManager manager;
     GameObject[] mobilePoints;
     GameObject[] staticPoints;
     KeyCode[] validUpKeys;
     KeyCode[] validDownKeys;
 
+    void Start() {
+
+        manager = FindObjectOfType<GameManager>();
+    }
+
     public void SpawnPoints(int numPoints) {
 
         mobilePoints = new GameObject[numPoints];
-        staticPoints = new GameObject[numPoints];
+        staticPoints = new GameObject[numPoints - 1];
 
         // Spawn points in a row centered on the screen with the distance between them being proportionally inversely related to the number of points
         float distanceBetweenPoints = distance / (numPoints - 1);
@@ -57,6 +66,12 @@ public class PointsController : MonoBehaviour
 
     void Update() {
         
+        // If Enter is pressed, next level
+        if (Input.GetKeyDown(KeyCode.Return)) {
+            manager.NextLevel();
+        }
+
+        if (manager.LevelEnded) return;
         bool movement = false;
         for (int i = 0; i < mobilePoints.Length; i++) {
             if (Input.GetKey(validUpKeys[i])) {
@@ -70,12 +85,7 @@ public class PointsController : MonoBehaviour
         }
 
         if (movement) {
-            GetComponentInChildren<GraphPolinomial>().points = mobilePoints.Select(point => point.transform.position).ToArray();
-        }
-
-        // If N is pressed, go to next level
-        if (Input.GetKeyDown(KeyCode.N)) {
-            FindObjectOfType<GameManager>().NextLevel();
+            GetComponentInChildren<GraphPolinomial>().points = MobilePoints;
         }
     }
 }
