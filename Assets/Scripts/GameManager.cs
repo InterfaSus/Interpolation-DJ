@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel() {
 
+        GetComponent<ScoreManager>().AddScore(currentPoints * 100);
+
         pointsController.DespawnPoints();
         currentPoints = Mathf.Min(currentPoints + 1, 6);
         pointsController.SpawnPoints(currentPoints);

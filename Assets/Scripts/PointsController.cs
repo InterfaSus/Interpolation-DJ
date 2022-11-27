@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PointsController : MonoBehaviour
@@ -25,14 +26,16 @@ public class PointsController : MonoBehaviour
         for (int i = 0; i < numPoints; i++) {
 
             float y = Random.Range(-4.5f, 4.5f);
-            mobilePoints[i] = Instantiate(mobilePointPrefab, new Vector3(i * distanceBetweenPoints - distance / 2, y, 0), Quaternion.identity);
+            mobilePoints[i] = Instantiate(mobilePointPrefab, new Vector3(i * distanceBetweenPoints - distance / 2, y, 0), Quaternion.identity, transform);
         }
+
+        GetComponentInChildren<GraphPolinomial>().points = mobilePoints.Select(point => point.transform.position).ToArray();
 
         // Spawn static points between the mobile points
         for (int i = 0; i < numPoints - 1; i++) {
 
             float y = Random.Range(-4.0f, 4.0f);
-            staticPoints[i] = Instantiate(staticPointPrefab, new Vector3((i + 0.5f) * distanceBetweenPoints - distance / 2, y, 0), Quaternion.identity);
+            staticPoints[i] = Instantiate(staticPointPrefab, new Vector3((i + 0.5f) * distanceBetweenPoints - distance / 2, y, 0), Quaternion.identity, transform);
         }
 
         validUpKeys = new KeyCode[] { KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.U, KeyCode.I, KeyCode.O};
@@ -54,13 +57,20 @@ public class PointsController : MonoBehaviour
 
     void Update() {
         
+        bool movement = false;
         for (int i = 0; i < mobilePoints.Length; i++) {
             if (Input.GetKey(validUpKeys[i])) {
+                movement = true;
                 mobilePoints[i].GetComponent<Point>().MoveUp();
             }
             if (Input.GetKey(validDownKeys[i])) {
+                movement = true;
                 mobilePoints[i].GetComponent<Point>().MoveDown();
             }
+        }
+
+        if (movement) {
+            GetComponentInChildren<GraphPolinomial>().points = mobilePoints.Select(point => point.transform.position).ToArray();
         }
 
         // If N is pressed, go to next level
