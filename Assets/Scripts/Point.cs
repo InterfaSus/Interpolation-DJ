@@ -5,11 +5,22 @@ using UnityEngine;
 public class Point : MonoBehaviour
 {
 
+    float yMoveLimit;
+
+    void Start() {
+
+        yMoveLimit = FindObjectOfType<PointsController>().yMoveLimit;
+    }
+
     public void MoveUp() {
-        transform.position += new Vector3(0, 0.1f, 0);
+
+        float newY = Mathf.Min(transform.position.y + 0.1f, yMoveLimit);
+        transform.position = new Vector3(transform.position.x, newY, 0);
     }
 
     public void MoveDown() {
-        transform.position += new Vector3(0, -0.1f, 0);
+
+        float newY = Mathf.Max(transform.position.y - 0.1f, -yMoveLimit);
+        transform.position = new Vector3(transform.position.x, newY, 0);
     }
 }

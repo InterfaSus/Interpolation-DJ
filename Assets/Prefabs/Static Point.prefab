@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ef18285b4fa45f775a5740b612564afd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 7282232052546279415}
   - component: {fileID: 3633709214208487512}
   m_Layer: 0
-  m_Name: Point
+  m_Name: Static Point
   m_TagString: Point
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
