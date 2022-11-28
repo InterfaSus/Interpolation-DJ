@@ -40,8 +40,11 @@ public class GameManager : MonoBehaviour
             
             endLevelText.SetActive(false);
 
-            currentLevel++;
-            if (currentLevel == 6) {
+            if (currentLevel == 1 || currentLevel % 2 == 1) {
+                currentPoints++;
+            }
+
+            if (currentLevel == 10) {
 
                 FinishRound();
                 return;
@@ -50,8 +53,9 @@ public class GameManager : MonoBehaviour
             LevelEnded = false;
             pressEnterText.SetActive(true);
 
+            currentLevel++;
             pointsController.DespawnPoints();
-            currentPoints = Mathf.Min(currentPoints + 1, 6);
+            currentPoints = Mathf.Min(currentPoints, 6);
             pointsController.SpawnPoints(currentPoints);
             GetComponent<TimerManager>().StartTimer();
         }

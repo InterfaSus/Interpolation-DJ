@@ -15,6 +15,7 @@ public class PointsController : MonoBehaviour
     public Vector3[] StaticPoints { get => staticPoints.Select(point => point.transform.position).ToArray(); }
 
     GameManager manager;
+    SlidersController slidersController;
     GameObject[] mobilePoints;
     GameObject[] staticPoints;
     KeyCode[] validUpKeys;
@@ -23,6 +24,7 @@ public class PointsController : MonoBehaviour
     void Start() {
 
         manager = FindObjectOfType<GameManager>();
+        slidersController = FindObjectOfType<SlidersController>();
     }
 
     public void SpawnPoints(int numPoints) {
@@ -51,6 +53,8 @@ public class PointsController : MonoBehaviour
         validDownKeys = new KeyCode[] { KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.J, KeyCode.K, KeyCode.L};
         System.Array.Resize(ref validUpKeys, mobilePoints.Length);
         System.Array.Resize(ref validDownKeys, mobilePoints.Length);
+
+        slidersController.UpdateSliders(MobilePoints);
     }
 
     public void DespawnPoints() {
@@ -86,6 +90,7 @@ public class PointsController : MonoBehaviour
 
         if (movement) {
             GetComponentInChildren<GraphPolinomial>().points = MobilePoints;
+            slidersController.UpdateSliders(MobilePoints);
         }
     }
 }
