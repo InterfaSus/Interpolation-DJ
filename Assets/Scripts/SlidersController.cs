@@ -11,7 +11,7 @@ public class SlidersController : MonoBehaviour
 
     List<Slider> sliders;
 
-    void Start() {
+    void Awake() {
 
         sliders = new List<Slider>();
         sliders.AddRange(slidersL.GetComponentsInChildren<Slider>());

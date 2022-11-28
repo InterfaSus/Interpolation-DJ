@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour
 
     void Start() {
         
+        // Play the song
+        var audioSource = FindObjectOfType<AudioSource>();
+        audioSource.clip = Globals.CurrentSong;
+        audioSource.Play();
+
         pointsController = FindObjectOfType<PointsController>();
 
         pointsController.SpawnPoints(currentPoints);
