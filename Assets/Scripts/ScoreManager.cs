@@ -10,7 +10,8 @@ public class ScoreManager : MonoBehaviour
 
     public TextMeshProUGUI scoreText;
     public TMP_InputField nameInput;
-    public IEnumerable<Tuple<string, int>> Scores { get => scores; }
+    public GameObject scoresObject;
+    public GameObject scoresObjectList;
 
     int score = 0;
     List<Tuple<string, int>> scores;
@@ -30,7 +31,7 @@ public class ScoreManager : MonoBehaviour
     public void ResetScore() {
         
         score = 0;
-        scoreText.text = "Score: " + score;
+        if (scoreText != null) scoreText.text = "Score: " + score;
     }
 
     // Load scores from player prefs
@@ -82,6 +83,21 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    public void ShowScoreList() {
+
+        LoadScores();
+
+        string text = "";
+        int i = 0;
+        foreach (var score in scores) {
+
+            text += $"{i + 1}. {score.Item1} - {score.Item2}\n";
+            i++;
+        }
+        
+        scoresObject.SetActive(true);
+        scoresObjectList.GetComponent<TextMeshProUGUI>().text = text;
+    }
     public void ClearScores() {
 
         PlayerPrefs.DeleteAll();

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
@@ -13,8 +12,10 @@ public class SongSelection : MonoBehaviour
 
     void Start() {
         
+        Globals.LoadSongs();
+
         // Add every song name in the Resources/Songs folder to the list
-        foreach (var song in Resources.LoadAll<AudioClip>("Songs")) {
+        foreach (var song in Globals.songs) {
             
             if (song.name == "default") continue;
 
@@ -26,10 +27,17 @@ public class SongSelection : MonoBehaviour
         }
     }
 
+    void Update() {
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            GetComponent<SceneControl>().LoadScene("MainMenu");
+        }
+    }
+
     public void StartLevel(AudioClip song) {
         
         Globals.CurrentSong = song;
         // Load the game scene
-        SceneManager.LoadScene("PlayScene");
+        GetComponent<SceneControl>().LoadScene("PlayScene");
     }
 }

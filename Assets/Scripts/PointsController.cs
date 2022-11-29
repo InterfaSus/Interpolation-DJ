@@ -75,7 +75,7 @@ public class PointsController : MonoBehaviour
             manager.NextLevel();
         }
 
-        if (manager.LevelEnded) return;
+        if (manager.GameEnded) return;
         bool movement = false;
         for (int i = 0; i < mobilePoints.Length; i++) {
             if (Input.GetKey(validUpKeys[i])) {

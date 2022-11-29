@@ -10,11 +10,8 @@ public class GameManager : MonoBehaviour
     public GameObject endLevelText;
     public GameObject pressEnterText;
     public GameObject enterName;
-    public GameObject scoresObject;
-    public GameObject scoresObjectList;
 
-    public bool LevelEnded { get; private set; } = false;
-    public bool RoundEnded { get; private set; } = false;
+    public bool GameEnded { get; private set; } = false;
 
     int currentPoints = 2;
     int currentLevel = 1;
@@ -35,34 +32,9 @@ public class GameManager : MonoBehaviour
 
     void Update() {
 
-        if (RoundEnded) {
-            if (Input.GetKeyDown(KeyCode.Return)) {
-                EnterScore();
-            }
+        if (GameEnded && Input.GetKeyDown(KeyCode.Return) && enterName.activeSelf) {
+            EnterScore();
             return;
-        }
-        if (LevelEnded && Input.GetKeyDown(KeyCode.Space)) {
-            
-            endLevelText.SetActive(false);
-
-            if (currentLevel == 1 || currentLevel % 2 == 1) {
-                currentPoints++;
-            }
-
-            if (currentLevel == 10) {
-
-                FinishRound();
-                return;
-            }
-
-            LevelEnded = false;
-            pressEnterText.SetActive(true);
-
-            currentLevel++;
-            pointsController.DespawnPoints();
-            currentPoints = Mathf.Min(currentPoints, 6);
-            pointsController.SpawnPoints(currentPoints);
-            GetComponent<TimerManager>().StartTimer();
         }
 
         // OJO TEMPORAL
@@ -73,9 +45,7 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel() {
         
-        if (LevelEnded) return;
-
-        GetComponent<TimerManager>().StopTimer();
+        if (GameEnded) return;
 
         var graphPolinomial = FindObjectOfType<GraphPolinomial>();
 
@@ -94,46 +64,35 @@ public class GameManager : MonoBehaviour
         float score = Mathf.Atan(1 / (error - 3)) + 1;
         if (error < 3) score += Mathf.PI;
 
+        GetComponent<TimerManager>().AddTime(score);
+
         GetComponent<ScoreManager>().AddScore((int)(score * Mathf.Pow(currentPoints, 2) * 100));
 
-        endLevelText.SetActive(true);
-        pressEnterText.SetActive(false);
-        LevelEnded = true;
+        if (currentLevel == 1 || currentLevel % 2 == 1) currentPoints++;
+
+        currentLevel++;
+        pointsController.DespawnPoints();
+        currentPoints = Mathf.Min(currentPoints, 6);
+        pointsController.SpawnPoints(currentPoints);
     }
 
-    void FinishRound() {
+    public void FinishRound() {
 
-        RoundEnded = true;
+        GameEnded = true;
         var scoreManager = GetComponent<ScoreManager>();
 
         if (scoreManager.CheckIfHighScore()) {
             enterName.SetActive(true);
             enterName.GetComponentInChildren<TMP_InputField>().Select();
         }
-        else ShowScoreList();
+        else scoreManager.ShowScoreList();
     }
 
     public void EnterScore() {
             
-        GetComponent<ScoreManager>().SaveScore();
-        enterName.SetActive(false);
-        ShowScoreList();
-    }
-
-    void ShowScoreList() {
-        
         var scoreManager = GetComponent<ScoreManager>();
-        var scoreList = scoreManager.Scores;
-
-        string text = "";
-        int i = 0;
-        foreach (var score in scoreList) {
-
-            text += $"{i + 1}. {score.Item1} - {score.Item2}\n";
-            i++;
-        }
-        
-        scoresObject.SetActive(true);
-        scoresObjectList.GetComponent<TextMeshProUGUI>().text = text;
+        scoreManager.SaveScore();
+        enterName.SetActive(false);
+        scoreManager.ShowScoreList();
     }
 }

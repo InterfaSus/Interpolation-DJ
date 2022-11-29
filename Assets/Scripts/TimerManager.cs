@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 public class TimerManager : MonoBehaviour
 {
 
-    public float timePerLevel = 20;
-    public TextMeshProUGUI timerText;
+    public Slider timerSlider;
 
     void Start() {
         
+        timerSlider.value = timerSlider.maxValue;
         StartTimer();
     }
 
@@ -19,21 +19,25 @@ public class TimerManager : MonoBehaviour
         StartCoroutine(Timer());
     }
 
-    public void StopTimer() {
-        
-        StopAllCoroutines();
+    public void AddTime(float time) {
+
+        time *= 3;
+        timerSlider.value = Mathf.Min(timerSlider.value + time, timerSlider.maxValue);
     }
 
     IEnumerator Timer() {
         
-        float timeLeft = timePerLevel + 1;
-        while (timeLeft > 0) {
+        timerSlider.fillRect.gameObject.SetActive(true);
 
-            timeLeft -= Time.deltaTime;
-            timerText.text = ((int)timeLeft).ToString();
+        while (timerSlider.value > 0) {
+
+            timerSlider.value -= Time.deltaTime;
             yield return null;
         }
-        timerText.text = "0";
-        FindObjectOfType<GameManager>().NextLevel();
+
+        // Deactivate the FillArea of the slider
+        timerSlider.fillRect.gameObject.SetActive(false);
+
+        GetComponent<GameManager>().FinishRound();
     }
 }
