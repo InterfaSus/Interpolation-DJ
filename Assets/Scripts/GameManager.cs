@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour
         float score = Mathf.Atan(1 / (error - 3)) + 1;
         if (error < 3) score += Mathf.PI;
 
+        if (score < 1.7f) return;
+
         GetComponent<TimerManager>().AddTime(score);
 
         GetComponent<ScoreManager>().AddScore((int)(score * Mathf.Pow(currentPoints, 2) * 100));

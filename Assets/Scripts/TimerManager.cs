@@ -21,7 +21,7 @@ public class TimerManager : MonoBehaviour
 
     public void AddTime(float time) {
 
-        time *= 3;
+        time *= 2.75f;
         timerSlider.value = Mathf.Min(timerSlider.value + time, timerSlider.maxValue);
     }
 

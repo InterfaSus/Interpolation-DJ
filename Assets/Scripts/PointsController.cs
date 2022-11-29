@@ -36,7 +36,7 @@ public class PointsController : MonoBehaviour
         float distanceBetweenPoints = distance / (numPoints - 1);
         for (int i = 0; i < numPoints; i++) {
 
-            float y = Random.Range(-4.5f, 4.5f);
+            float y = Random.Range(-yMoveLimit, yMoveLimit);
             mobilePoints[i] = Instantiate(mobilePointPrefab, new Vector3(i * distanceBetweenPoints - distance / 2, y, 0), Quaternion.identity, transform);
         }
 
@@ -45,7 +45,7 @@ public class PointsController : MonoBehaviour
         // Spawn static points between the mobile points
         for (int i = 0; i < numPoints - 1; i++) {
 
-            float y = Random.Range(-4.0f, 4.0f);
+            float y = Random.Range(-yMoveLimit * 7.0f / 9.0f, yMoveLimit * 7.0f / 9.0f);
             staticPoints[i] = Instantiate(staticPointPrefab, new Vector3((i + 0.5f) * distanceBetweenPoints - distance / 2, y, 0), Quaternion.identity, transform);
         }
 
