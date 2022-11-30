@@ -70,12 +70,15 @@ public class GameManager : MonoBehaviour
 
         if (currentLevel == 1 || currentLevel % 2 == 1) currentPoints++;
 
+        // Do a screen shake
+        StartCoroutine(Shake(0.2f, 0.2f));
+
         currentLevel++;
         pointsController.DespawnPoints();
         currentPoints = Mathf.Min(currentPoints, 6);
         pointsController.SpawnPoints(currentPoints);
     }
-
+    
     public void FinishRound() {
 
         GameEnded = true;
@@ -94,5 +97,26 @@ public class GameManager : MonoBehaviour
         scoreManager.SaveScore();
         enterName.SetActive(false);
         scoreManager.ShowScoreList();
+    }
+
+    IEnumerator Shake(float duration, float magnitude) {
+        
+        Vector3 originalPos = Camera.main.transform.localPosition;
+
+        float elapsed = 0.0f;
+
+        while (elapsed < duration) {
+
+            float x = Random.Range(-1f, 1f) * magnitude;
+            float y = Random.Range(-1f, 1f) * magnitude;
+
+            Camera.main.transform.localPosition = new Vector3(x, y, originalPos.z);
+
+            elapsed += Time.deltaTime;
+
+            yield return null;
+        }
+
+        Camera.main.transform.localPosition = originalPos;
     }
 }
