@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class SpectrumController : MonoBehaviour
 {
+    public float spacing = 0.6f;
     public float scale = 100;
-    public float baseHeight = 1;
+    public float baseHeight = 0.3f;
     public int visible = 128;
     public float observe = 2;
 
@@ -29,8 +30,8 @@ public class SpectrumController : MonoBehaviour
         {
             objectLeft[i] = Instantiate(cubePrefab, transform);
             objectRight[i] = Instantiate(cubePrefab, transform);
-            objectLeft[i].transform.localPosition = new Vector3(-i, 0, 0);
-            objectRight[i].transform.localPosition = new Vector3(i, 0, 0);
+            objectLeft[i].transform.localPosition = new Vector3(-i*spacing, 0, 0);
+            objectRight[i].transform.localPosition = new Vector3(i*spacing, 0, 0);
         }
     }
 
@@ -41,8 +42,8 @@ public class SpectrumController : MonoBehaviour
         for (int i = 0; i < visible; i++)
         {
             float scale = signals[i] * this.scale + baseHeight;
-            objectLeft[i].transform.localScale = new Vector3(1, scale, 1);
-            objectRight[i].transform.localScale = new Vector3(1, scale, 1);
+            objectLeft[i].transform.localScale = new Vector3(0.5f, scale, 1);
+            objectRight[i].transform.localScale = new Vector3(0.5f, scale, 1);
         }
 
 
