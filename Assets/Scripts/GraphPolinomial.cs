@@ -10,10 +10,11 @@ public class GraphPolinomial : MonoBehaviour
     public float xMin = 0;
     public float xMax = 10;
     public float spacing = 0.1f;
+    float[] coefficients;
     
     private int pointCount;
     private LineRenderer line;
-    public Vector3 CalculatePoints(float x, float[] coefficients)
+    public Vector3 CalculatePoints(float x)
     {
         float y = 0;
         for (int i = 0; i < coefficients.Length; i++)
@@ -37,13 +38,13 @@ public class GraphPolinomial : MonoBehaviour
     private void Update() {
 
         //Get polinoimal coefficients
-        float[] coefficients = GetPolinomial(points);
+        coefficients = GetPolinomial(points);
 
         //Calculate points
         for (int i = 0; i < line.positionCount; i++)
         {
             float x = xMin + i * spacing;
-            line.SetPosition(i, CalculatePoints(x, coefficients));
+            line.SetPosition(i, CalculatePoints(x));
         }
     }
 

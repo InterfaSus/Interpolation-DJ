@@ -52,12 +52,10 @@ public class GameManager : MonoBehaviour
         Vector3[] mobilePoints = pointsController.MobilePoints;
         Vector3[] staticPoints = pointsController.StaticPoints;
 
-        float[] polinomial = graphPolinomial.GetPolinomial(mobilePoints);
-
         // Calculate mean square error
         float error = 0;
         foreach (var point in staticPoints) {
-            error += Mathf.Pow(point.y - graphPolinomial.CalculatePoints(point.x, polinomial).y, 2);
+            error += Mathf.Pow(point.y - graphPolinomial.CalculatePoints(point.x).y, 2);
         }
         error /= staticPoints.Length;
         // Score is arc cotangent of (error - 3) + 1

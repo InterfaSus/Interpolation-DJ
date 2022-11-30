@@ -1473,7 +1473,7 @@ MonoBehaviour:
   mobilePointPrefab: {fileID: 1040730314553296682, guid: 8eb168dbcd3f5cdd49899b577d3673df, type: 3}
   staticPointPrefab: {fileID: 1040730314553296682, guid: 9af008e64872075b7a0737fcd265c3b1, type: 3}
   distance: 15
-  yMoveLimit: 4.5
+  yMoveLimit: 4
 --- !u!1 &939892299
 GameObject:
   m_ObjectHideFlags: 0

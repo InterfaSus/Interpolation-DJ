@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df7bd81576bb150d895f2bab95ef6d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  circle: {fileID: 0}
+  isMobile: 1
+  toggleError: 0.5
 --- !u!1 &1081198544569773427
 GameObject:
   m_ObjectHideFlags: 0
