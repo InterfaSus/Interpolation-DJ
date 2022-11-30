@@ -26,6 +26,11 @@ public class GameManager : MonoBehaviour
         audioSource.clip = Globals.CurrentSong;
         audioSource.Play();
 
+        if (Globals.lastSongName == Globals.CurrentSong.name) {
+            audioSource.time = Globals.lastSongTime;
+        }
+        Globals.lastSongName = Globals.CurrentSong.name;
+
         pointsController = FindObjectOfType<PointsController>();
 
         // Start a coroutine to count down
@@ -56,10 +61,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // OJO TEMPORAL
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            GetComponent<ScoreManager>().ClearScores();
-        }
+        Globals.lastSongTime = FindObjectOfType<AudioSource>().time;
     }
 
     public void NextLevel() {

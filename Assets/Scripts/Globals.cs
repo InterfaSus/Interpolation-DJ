@@ -7,6 +7,9 @@ public static class Globals {
     public static AudioClip CurrentSong = Resources.Load<AudioClip>("Songs/default");
 
     public static List<AudioClip> songs;
+    public static float menuSongTime = 0;
+    public static string lastSongName = "";
+    public static float lastSongTime = 0;
 
     public static void LoadSongs() {
 

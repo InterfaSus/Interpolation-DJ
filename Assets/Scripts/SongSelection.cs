@@ -25,6 +25,10 @@ public class SongSelection : MonoBehaviour
             // Add a listener to the button that will call the StartLevel function in the GameManager
             button.GetComponent<Button>().onClick.AddListener(() => FindObjectOfType<SongSelection>().StartLevel(song));
         }
+
+        // Start the menu song in the saved time
+        GetComponent<AudioSource>().Play();
+        GetComponent<AudioSource>().time = Globals.menuSongTime;
     }
 
     void Update() {
@@ -32,11 +36,15 @@ public class SongSelection : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)) {
             GetComponent<SceneControl>().LoadScene("MainMenu");
         }
+
+        // Get the current song time
+        Globals.menuSongTime = GetComponent<AudioSource>().time;
     }
 
     public void StartLevel(AudioClip song) {
         
         Globals.CurrentSong = song;
+        
         // Load the game scene
         GetComponent<SceneControl>().LoadScene("PlayScene");
     }
