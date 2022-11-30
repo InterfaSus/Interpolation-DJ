@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject endLevelText;
     public GameObject pressEnterText;
     public GameObject enterName;
+    public TextMeshProUGUI countdownText;
 
     public bool GameEnded { get; private set; } = false;
 
@@ -27,7 +28,25 @@ public class GameManager : MonoBehaviour
 
         pointsController = FindObjectOfType<PointsController>();
 
+        // Start a coroutine to count down
+        StartCoroutine(Countdown());
+    }
+
+    IEnumerator Countdown() {
+        // Count down from 3
+        for (int i = 3; i > 0; i--) {
+            countdownText.text = i.ToString();
+            yield return new WaitForSeconds(1);
+        }
+
+        // Start the game
+        countdownText.text = "GO!";
+        yield return new WaitForSeconds(1);
+        countdownText.text = "";
+
+        // Start the points controller
         pointsController.SpawnPoints(currentPoints);
+        GetComponent<TimerManager>().StartTimer();
     }
 
     void Update() {

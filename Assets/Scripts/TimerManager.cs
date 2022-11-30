@@ -11,7 +11,6 @@ public class TimerManager : MonoBehaviour
     void Start() {
         
         timerSlider.value = timerSlider.maxValue;
-        StartTimer();
     }
 
     public void StartTimer() {

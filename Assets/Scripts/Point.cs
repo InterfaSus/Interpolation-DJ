@@ -8,9 +8,12 @@ public class Point : MonoBehaviour
     public SpriteRenderer circle;
     public bool isMobile;
     public float toggleError = 0.5f;
+    public Animation turnOn;
+    public Animation turnOff;
 
     float yMoveLimit;
     GraphPolinomial graph;
+    bool isClose = false;
 
     void Start() {
 
@@ -20,8 +23,21 @@ public class Point : MonoBehaviour
 
     void Update() {
 
-        if (!isMobile) circle.color = Mathf.Abs(graph.CalculatePoints(transform.position.x).y - transform.position.y) < toggleError
-            ? Color.green : Color.red;
+        // Spin the point
+        transform.Rotate(0, 0, 100 * Time.deltaTime);
+
+        if (!isMobile) 
+            TogglePoint(Mathf.Abs(graph.CalculatePoints(transform.position.x).y - transform.position.y) < toggleError);
+    }
+
+    public void TogglePoint(bool toggle) {
+
+        circle.color = toggle ? Color.green : Color.red;
+
+        if (!isClose && toggle) turnOn.Play("RingOut");
+        else if (isClose && !toggle) turnOff.Play("TurnOff");
+
+        isClose = toggle;
     }
 
     public void MoveUp() {
