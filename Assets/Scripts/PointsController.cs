@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +19,11 @@ public class PointsController : MonoBehaviour
     SlidersController slidersController;
     GameObject[] mobilePoints;
     GameObject[] staticPoints;
+    KeyCode[] generalUpKeys = new KeyCode[] { KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.U, KeyCode.I, KeyCode.O};
+    KeyCode[] generalDownKeys = new KeyCode[] { KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.J, KeyCode.K, KeyCode.L};
     KeyCode[] validUpKeys;
     KeyCode[] validDownKeys;
+    int[] keysOrder = new int[] { 3, 2, 4, 1 };
 
     void Start() {
 
@@ -36,7 +40,7 @@ public class PointsController : MonoBehaviour
         float distanceBetweenPoints = distance / (numPoints - 1);
         for (int i = 0; i < numPoints; i++) {
 
-            float y = Random.Range(-yMoveLimit, yMoveLimit);
+            float y = UnityEngine.Random.Range(-yMoveLimit, yMoveLimit);
             mobilePoints[i] = Instantiate(mobilePointPrefab, new Vector3(i * distanceBetweenPoints - distance / 2, y, 0), Quaternion.identity, transform);
         }
 
@@ -45,16 +49,30 @@ public class PointsController : MonoBehaviour
         // Spawn static points between the mobile points
         for (int i = 0; i < numPoints - 1; i++) {
 
-            float y = Random.Range(-yMoveLimit * 7.0f / 9.0f, yMoveLimit * 7.0f / 9.0f);
+            float y = UnityEngine.Random.Range(-yMoveLimit * 7.0f / 9.0f, yMoveLimit * 7.0f / 9.0f);
             staticPoints[i] = Instantiate(staticPointPrefab, new Vector3((i + 0.5f) * distanceBetweenPoints - distance / 2, y, 0), Quaternion.identity, transform);
         }
 
-        validUpKeys = new KeyCode[] { KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.U, KeyCode.I, KeyCode.O};
-        validDownKeys = new KeyCode[] { KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.J, KeyCode.K, KeyCode.L};
-        System.Array.Resize(ref validUpKeys, mobilePoints.Length);
-        System.Array.Resize(ref validDownKeys, mobilePoints.Length);
+        validUpKeys = FilterKeys(generalUpKeys, numPoints);
+        validDownKeys = FilterKeys(generalDownKeys, numPoints);
 
+        slidersController.StartLevel(numPoints);
         slidersController.UpdateSliders(MobilePoints);
+    }
+
+    private KeyCode[] FilterKeys(KeyCode[] keys, int n) {
+
+        List<KeyCode> result = new List<KeyCode>();
+        List<int> order = new List<int>();
+
+        for (int i = 0; i < (n + 1) / 2; i++) {
+            result.Add(keys[i]);
+        }
+        for (int i = 6 - n / 2; i < 6; i++) {
+            result.Add(keys[i]);
+        }
+
+        return result.ToArray();
     }
 
     public void DespawnPoints() {
