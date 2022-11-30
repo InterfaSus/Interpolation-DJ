@@ -40,6 +40,19 @@ public class SlidersController : MonoBehaviour
         }
 
         order = result.ToArray();
+
+        for (int i = 0; i < 6; i++) {
+            // Make sliders semi-transparent
+            foreach(var image in sliders[i].GetComponentsInChildren<Image>()) {
+                image.color = new Color(image.color.r, image.color.g, image.color.b, 0.5f);
+            }
+        }
+
+        for (int i = 0; i < order.Length; i++) {
+            foreach(var image in sliders[order[i]].GetComponentsInChildren<Image>()) {
+                image.color = new Color(image.color.r, image.color.g, image.color.b, 1);
+            }
+        }
     }
 
     public void UpdateSliders(Vector3[] points) {
