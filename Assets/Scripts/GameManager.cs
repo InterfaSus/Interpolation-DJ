@@ -61,6 +61,15 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            GetComponent<SceneControl>().LoadScene("SongSelection");
+        }
+
+        // If Ctrl + A is pressed, clear scores
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.B)) {
+            GetComponent<ScoreManager>().ClearScores();
+        }
+
         Globals.lastSongTime = FindObjectOfType<AudioSource>().time;
     }
 
