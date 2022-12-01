@@ -7,8 +7,6 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {   
 
-    public GameObject endLevelText;
-    public GameObject pressEnterText;
     public GameObject enterName;
     public TextMeshProUGUI countdownText;
 

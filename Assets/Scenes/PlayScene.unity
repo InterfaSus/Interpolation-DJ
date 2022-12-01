@@ -798,6 +798,7 @@ GameObject:
   - component: {fileID: 458955328}
   - component: {fileID: 458955330}
   - component: {fileID: 458955329}
+  - component: {fileID: 458955331}
   m_Layer: 5
   m_Name: Press Enter Text
   m_TagString: Untagged
@@ -822,8 +823,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 218.2, y: 66.7}
-  m_SizeDelta: {x: 197.0929, y: 31.3006}
+  m_AnchoredPosition: {x: 228, y: 72}
+  m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &458955329
 MonoBehaviour:
@@ -922,6 +923,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 458955327}
   m_CullTransparentMesh: 1
+--- !u!95 &458955331
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458955327}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d7bbe5a0ccd421430a9a8ef07ad58d92, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3113,8 +3134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c013de7095952cb88bc615ddf839b2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endLevelText: {fileID: 0}
-  pressEnterText: {fileID: 458955327}
   enterName: {fileID: 778841440}
   countdownText: {fileID: 1282444132}
 --- !u!4 &2026096669
