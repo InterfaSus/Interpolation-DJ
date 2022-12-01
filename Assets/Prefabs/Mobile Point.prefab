@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 1040730314553296682}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4831495807460919213}
   m_Father: {fileID: 0}
@@ -48,6 +48,8 @@ MonoBehaviour:
   circle: {fileID: 0}
   isMobile: 1
   toggleError: 0.5
+  turnOn: {fileID: 0}
+  turnOff: {fileID: 0}
 --- !u!1 &1081198544569773427
 GameObject:
   m_ObjectHideFlags: 0
