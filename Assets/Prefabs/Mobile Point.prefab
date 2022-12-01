@@ -48,6 +48,7 @@ MonoBehaviour:
   circle: {fileID: 0}
   isMobile: 1
   toggleError: 0.5
+  speed: 1
   turnOn: {fileID: 0}
   turnOff: {fileID: 0}
 --- !u!1 &1081198544569773427

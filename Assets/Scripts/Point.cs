@@ -8,6 +8,7 @@ public class Point : MonoBehaviour
     public SpriteRenderer circle;
     public bool isMobile;
     public float toggleError = 0.5f;
+    public float speed = 1.5f;
     public Animation turnOn;
     public Animation turnOff;
 
@@ -42,13 +43,13 @@ public class Point : MonoBehaviour
 
     public void MoveUp() {
 
-        float newY = Mathf.Min(transform.position.y + 0.1f, yMoveLimit);
+        float newY = Mathf.Min(transform.position.y + 0.1f * speed, yMoveLimit);
         transform.position = new Vector3(transform.position.x, newY, 0);
     }
 
     public void MoveDown() {
 
-        float newY = Mathf.Max(transform.position.y - 0.1f, -yMoveLimit);
+        float newY = Mathf.Max(transform.position.y - 0.1f * speed, -yMoveLimit);
         transform.position = new Vector3(transform.position.x, newY, 0);
     }
 
