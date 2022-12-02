@@ -1,5 +1,7 @@
 # Interportal
 
+Puede descargar el módulo de ~~juego~~ trabajo [AQUÍ](https://github.com/InterfaSus/Interpolation-DJ/releases/latest/)  
+
 ![Logo](./Assets/Sprites/Logo.png)
 
 Puede descargar el módulo de ~~juego~~ trabajo [AQUÍ](https://github.com/InterfaSus/Interpolation-DJ/releases/latest/)
