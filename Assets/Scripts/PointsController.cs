@@ -90,8 +90,7 @@ public class PointsController : MonoBehaviour
         
         if (mobilePoints == null) return;
 
-        // If Enter is pressed, next level
-        if (Input.GetKeyDown(KeyCode.Return)) {
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) {
             manager.NextLevel();
         }
 
